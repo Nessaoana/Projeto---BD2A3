@@ -223,7 +223,7 @@ AS
 
 
 GO
-UPDATE Notas SET n4 = 8 WHERE idDisciplina = 10 AND prontuario = 100;
+UPDATE Notas SET n4 = 1 WHERE idDisciplina = 10 AND prontuario = 100;
 
 SELECT * FROM NOTAS WHERE prontuario = 100;
 
@@ -246,24 +246,53 @@ PRINT('A DATA DE MODIFICACAO FOI ATUALIZADA');
 -- TRIGGER 3
 -- Atualizar data de edição no cadastro da pessoa/
 
+GO
+CREATE TRIGGER dataAtualizacao 
+on Pessoa
+after update
+as
+	declare @idPessoa int;
+	SELECT @idPessoa = idPessoa FROM inserted;
+
+	UPDATE PESSOA SET dataAtualizacao = GETDATE() where idPessoa = @idPessoa ;
 
 
-
+UPDATE PESSOA SET nomePessoa = 'Ana Maria' where idPessoa = 1;
 
 -- TRIGGER 4
+-- Calcular quantos aprovados na turma quando o periodo estiver fechado. 
+go
+CREATE TRIGGER contaAprovados
+on turma
+after UPDATE
+as
+	DECLARE @periodoFechado tinyint;
+	DECLARE @total int;
+	DECLARE @idTurma int;
 
+	select @periodoFechado = periodoFechado FROM inserted;
+	select @idTurma = idTurma FROM inserted;
 
+	begin
+		IF @periodoFechado = 1 
+			SET @total = (SELECT count(*) FROM TURMA t
+			inner join turmaAluno ta
+			on ta.idTurma = t.idTurma
+			inner join notas n
+			on t.idDisciplina = n.idDisciplina AND n.prontuario = ta.prontuario
+			WHERE n.aprovado = 1 AND t.periodoFechado = 1);
 
-
+			UPDATE turma SET aprovados = @total WHERE idTurma = @idTurma;
+	end
 
 -- TRIGGER 5
-
+-- Atualizar vagasRestantes quando um aluno sair da turma/disciplina 
 
 
 
 
 --PROCEDURE 1
--- Calcular o slário do prof cordenador
+-- Calcular o salário do prof cordenador
 
 
 -- PROCEDURE 2
@@ -281,22 +310,3 @@ PRINT('A DATA DE MODIFICACAO FOI ATUALIZADA');
 -- PROCEDURE 5
 
 
-
-
-
-
---TRIGGER 3
---Trigger para atualizar o numero de faltas
-GO
-drop TRIGGER dataDemissao
-ON Professor
-AFTER INSERT, UPDATE
-AS
-DECLARE @dataDemissao date;
-DECLARE @prontuario int;
-SELECT @dataDemissao = dataSaida FROM inserted;
-UPDATE Professor SET dataSaida = @dataDemissao WHERE prontuario = @prontuario;
-PRINT('A DATA DE DESLIGAMENTO FOI INSERIDA');
-
-UPDATE Professor SET dataSaida = '2019-11-17' WHERE prontuario = 1000;
-*/
