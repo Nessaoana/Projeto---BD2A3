@@ -23,6 +23,8 @@ CREATE TABLE Endereco (
   CONSTRAINT estadoEndereco_FK FOREIGN KEY (idEstado) REFERENCES Estado (idEstado)
 );
 
+
+-- ALTERADA
 GO
 CREATE TABLE Pessoa (
   idPessoa INT NOT NULL PRIMARY KEY,
@@ -32,6 +34,7 @@ CREATE TABLE Pessoa (
   CPF VARCHAR(11) NULL,
   RG VARCHAR(9) NULL,
   sexo VARCHAR(45) NULL,
+  dataAtualizacao DATE,
   INDEX pessoaEndereco_FK_idx (idEndereco ASC),
   CONSTRAINT pessoaEndereco_FK FOREIGN KEY (idEndereco) REFERENCES Endereco(idEndereco)
 );
@@ -112,22 +115,27 @@ CREATE TABLE Disciplina (
   aulas INT NULL
 );
 
+
+-- ALTERADA
 CREATE TABLE curriculoCurso (
   idCurso INT NOT NULL,
   idDisciplina INT NULL,
   semestre INT NULL,
+  vagas INT null,
   INDEX curso_FK_idx (idCurso ASC),
   INDEX disciplina_FK_idx (idDisciplina ASC),
   CONSTRAINT curso_FK FOREIGN KEY (idCurso) REFERENCES Curso (idCurso),
   CONSTRAINT disciplina_FK FOREIGN KEY (idDisciplina) REFERENCES Disciplina (idDisciplina)
 );
 
-
+-- ALTERADO
 CREATE TABLE Turma (
   idTurma INT NOT NULL,
   idDisciplina INT NULL,
   periodo VARCHAR(6) NULL,
   prontuarioProf INT NULL,
+  periodoFechado tinyint null,
+  aprovados int null,
   PRIMARY KEY (idTurma),
   INDEX disciplinaTurma_idx (idDisciplina ASC),
   INDEX disciplinaProfessor_idx (prontuarioProf ASC),
