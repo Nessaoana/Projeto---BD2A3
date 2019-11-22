@@ -258,7 +258,7 @@ UPDATE Curso SET sigla = 'EH' WHERE idCurso = 370;
 
 GO
 INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VALUES
-(10,100,6,2,8,7,NULL),
+(10,100,6,2,8,null,NULL),
 (11,100,3,6,9,10,NULL),
 (12,100,10,5,4,8,NULL),
 (13,100,1,1,7,6,NULL),

@@ -1,5 +1,7 @@
 --FUNCTION 1		
 --Função para deixar as datas formatadas
+USE PROJETOESCOLA;
+
 GO
 CREATE FUNCTION formatarData (@DATA AS DATETIME)
 RETURNS VARCHAR(MAX)
@@ -16,8 +18,8 @@ END;
 --1
 SELECT dbo.formatarData(dataEntrada) as [Data de Admissao] FROM Professor;
 --2
-SELECT p.nome, p.sobreNome, dbo.formatarData(dataEntrada) as [Data de Admissao] FROM Professor pro
-INNER JOIN Pessoa p ON pro.idPessoa = p.idPessoa;
+SELECT p.nomePessoa, p.sobreNome, dbo.formatarData(prof.dataEntrada) as [Data de Admissao] FROM Professor prof
+INNER JOIN Pessoa p ON prof.idPessoa = p.idPessoa;
 --3
 SELECT dbo.formatarData(dataSaida) as [Data de Demissao] FROM Professor where dataSaida is not null;
 --4
@@ -100,40 +102,21 @@ SELECT pe.nome, pe.sobrenome, p.prontuario, dbo.TempoNaEscola(prontuario) as [Te
 SELECT pe.nome, pe.sobrenome, p.prontuario, dbo.TempoNaEscola(prontuario) as [Tempo na Escola], p.dataSaida FROM Professor p 
 		 INNER JOIN Pessoa pe ON p.idPessoa = pe.idPessoa;
 
---FUNCTION 5  ARRUMAR PQ N FUNCIONA
+--FUNCTION 5 
 --Função para calcular a média das notas dos alunos
 GO
-CREATE FUNCTION calculaMedia (@prontuario int, @idDisciplina int)
+CREATE FUNCTION calculaMedia (@n1 float, @n2 float, @n3 float,@n4 float )
 RETURNS FLOAT
 AS
 begin
-	declare @n1 float;
-	declare @n2 float;
-	declare @n3 float;
-	declare @n4 float;
-	SELECT @n1 = n1 FROM Notas where @prontuario = prontuario AND @idDisciplina = idDisciplina;
-	SELECT @n2 = n2 FROM Notas where @prontuario = prontuario AND @idDisciplina = idDisciplina;
-	SELECT @n3 = n3 FROM Notas where @prontuario = prontuario AND @idDisciplina = idDisciplina;
-	SELECT @n4 = n4 FROM Notas where @prontuario = prontuario AND @idDisciplina = idDisciplina;
-	/*set @n1 = (select n1 from Notas where @prontuario = prontuario and @idDisciplina = idDisciplina);
-	set @n2 = (select n2 from Notas where @prontuario = prontuario and @idDisciplina = idDisciplina);
-	set @n3 = (select n3 from Notas where @prontuario = prontuario and @idDisciplina = idDisciplina);
-	set @n4 = (select n4 from Notas where @prontuario = prontuario and @idDisciplina = idDisciplina);*/
 
 	declare @media float;
-	SELECT @media = (n1+n2+n3+n4)/4 FROM Notas where @prontuario = prontuario AND @idDisciplina = idDisciplina;
-	--set @media = (@n1+@n2+@n3+@n4)/4 ;
-	IF (@media >= 7)   
-	begin
-	 --UPDATE Notas SET aprovado = 1 WHERE @prontuario = prontuario and @idDisciplina = idDisciplina;
-     RETURN (SELECT n1, n2, n3, n4 FROM Notas where @prontuario = ( SELECT prontuario FROM Aluno WHERE @prontuario = Prontuario));
-	end
-     RETURN (SELECT n1, n2, n3, n4 FROM Notas where @prontuario = prontuario AND @idDisciplina = idDisciplina);
-end
+	SET @media = (@n1+@n2+@n3+@n4)/4;
+     RETURN @media;
+end;
 
+SELECT * FROM dbo.calculaMedia(10,10,10,10);
 
-
---iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
 --VIEW 1
 --View para mostrar os alunos e suas notas
 GO
@@ -207,31 +190,46 @@ SELECT * FROM alunoMatricula order by nomeCurso;
 --Outra opcao
 SELECT * FROM alunoMatricula;
 
-/*
---iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
+
 --TRIGGER 1
---Função para mostrar há quanto tempo o professor trabalha na escola em MESES
+--Função para atualizar o status de aprovação do aluno
+
 GO
 CREATE TRIGGER atualizaAprovado
 ON Notas
-AFTER UPDATE, INSERT, DELETE
+AFTER INSERT, UPDATE
 AS
-DECLARE @n1 FLOAT;
-DECLARE @n2 FLOAT;
-DECLARE @n3 FLOAT;
-DECLARE @n4 FLOAT;
-DECLARE @media FLOAT;
-SELECT @n1 = n1 FROM inserted;
-SELECT @n2 = n2 FROM inserted;
-SELECT @n3 = n3 FROM inserted;
-SELECT @n4 = n4 FROM inserted;
-SELECT @media = @media = (n1+n2+n3+n4)/4 FROM inserted;
+	declare @prontuario int;
+	declare @disciplina int;
+	declare @media float;
+	declare @n1 float;
+	declare @n2 float;
+	declare @n3 float;
+	declare @n4 float;
+	SELECT @n1 = n1 FROM inserted;
+	SELECT @n2 = n2 FROM inserted;
+	SELECT @n3 = n3 FROM inserted;
+	SELECT @n4 = n4 FROM inserted;;
+	SELECT @prontuario = prontuario FROM inserted;;
+	SELECT @disciplina = idDisciplina FROM inserted;;
 
-UPDATE Notas SET aprovado = 1 WHERE ;
-PRINT('A DATA DE MODIFICACAO FOI ATUALIZADA');
+	IF @n1 is not null AND @n2 is not null AND @n3 is not null AND @n4 IS NOT NULL
+		SET  @media = (SELECT * FROM dbo.calculaMedia(@n1, @n2, @n3, @n4));
+	IF @media >=7
+
+		UPDATE Notas SET aprovado = 0 WHERE prontuario = @prontuario AND idDisciplina = @disciplina;
+	else
+		UPDATE Notas SET aprovado = 1 WHERE prontuario = @prontuario AND idDisciplina = @disciplina;
 
 
---TRIGGER 2		000000000000000000000000000000000000000000000000000000000000000000000000000000000
+GO
+UPDATE Notas SET n4 = 8 WHERE idDisciplina = 10 AND prontuario = 100;
+
+SELECT * FROM NOTAS WHERE prontuario = 100;
+
+
+
+--TRIGGER 2	
 --Trigger para atualizar o numero de faltas
 GO
 CREATE TRIGGER atualizaPresencas
@@ -244,7 +242,50 @@ SELECT @presencas = presencas FROM inserted;
 UPDATE REPRESENTANTE SET dataDeAtualizacao = GETDATE() WHERE CODIGOREPRESENTANTE = @codigoRepresentante;
 PRINT('A DATA DE MODIFICACAO FOI ATUALIZADA');
 
---TRIGGER 3		000000000000000000000000000000000000000000000000000000000000000000000000000000000
+
+-- TRIGGER 3
+-- Atualizar data de edição no cadastro da pessoa/
+
+
+
+
+
+-- TRIGGER 4
+
+
+
+
+
+-- TRIGGER 5
+
+
+
+
+
+--PROCEDURE 1
+-- Calcular o slário do prof cordenador
+
+
+-- PROCEDURE 2
+-- Tirar um aluno da turma
+
+
+-- PROCEDURE 3
+-- Ver matrículas que uma pessoa possui 
+
+
+-- PROCEDURE 4
+-- 
+
+
+-- PROCEDURE 5
+
+
+
+
+
+
+--TRIGGER 3
 --Trigger para atualizar o numero de faltas
 GO
 drop TRIGGER dataDemissao
