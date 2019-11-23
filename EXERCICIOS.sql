@@ -1,5 +1,5 @@
 --FUNCTION 1		
---FunÁ„o para deixar as datas formatadas
+--Fun√ß√£o para deixar as datas formatadas
 USE PROJETOESCOLA;
 
 GO
@@ -14,7 +14,7 @@ RETURN
  DATENAME(YEAR, @DATA)
 END;
 
---Algumas opÁıes de consulta
+--Algumas op√ß√µes de consulta
 --1
 SELECT dbo.formatarData(dataEntrada) as [Data de Admissao] FROM Professor;
 --2
@@ -32,7 +32,7 @@ INNER JOIN Pessoa p ON pro.idPessoa = p.idPessoa where prontuario = 1000;
 
 
 --FUNCTION 2		
---FunÁ„o para calcular as faltas
+--Fun√ß√£o para calcular as faltas
 GO
 create FUNCTION calculaFaltas (@codAluno INT)
 RETURNS int AS
@@ -42,68 +42,68 @@ BEGIN
 			INNER JOIN turmaAluno ta ON t.idTurma = ta.idTurma
 			INNER JOIN curriculoCurso c ON d.idDisciplina = c.idDisciplina
 			INNER JOIN Curso cur ON c.idCurso = cur.idCurso
-			INNER JOIN Aluno a ON ta.prontuario = a.Prontuario
+			INNER JOIN Aluno a ON ta.ProntuarioAluno = a.ProntuarioAluno
 			INNER JOIN Pessoa p ON a.idPessoa = p.idPessoa 
-			INNER JOIN Frequencia f ON ta.idTurmaAluno = f.idTurmaAluno WHERE @codAluno = ta.prontuario)
+			INNER JOIN Frequencia f ON ta.idTurmaAluno = f.idTurmaAluno WHERE @codAluno = ta.ProntuarioAluno)
 END
---Algumas opÁıes de consulta
+--Algumas op√ß√µes de consulta
 --1
-select dbo.calculaFaltas(Prontuario) AS FALTAS from Aluno where Prontuario = 100;
+select dbo.calculaFaltas(ProntuarioAluno) AS FALTAS from Aluno where ProntuarioAluno = 100;
 --2
-select p.nome, a.Prontuario, dbo.calculaFaltas(Prontuario) AS FALTAS from Aluno a 
-inner join Pessoa p ON a.idPessoa = p.idPessoa where Prontuario = 245;
+select p.nomePessoa, a.ProntuarioAluno, dbo.calculaFaltas(ProntuarioAluno) AS FALTAS from Aluno a 
+inner join Pessoa p ON a.idPessoa = p.idPessoa where ProntuarioAluno = 245;
 
 
 
 --FUNCTION 3		
---FunÁ„o que possui apenas os professores que ainda est„o na escola
+--Fun√ß√£o que possui apenas os professores que ainda est√£o na escola
 GO
 CREATE FUNCTION professoresAtuais (@codProf int)
 RETURNS TABLE
 AS
-RETURN (SELECT p.prontuario, p.salario, p.dataEntrada, p.idDepartamento, p.titulacao, pe.nomePessoa, pe.sobrenome FROM  Professor p
-		INNER JOIN Pessoa pe ON p.idPessoa = pe.idPessoa WHERE dataSaida is null and @codProf = prontuario);
+RETURN (SELECT p.prontuarioProf, p.salario, p.dataEntrada, p.idDepartamento, p.titulacao, pe.nomePessoa, pe.sobrenome FROM  Professor p
+		INNER JOIN Pessoa pe ON p.idPessoa = pe.idPessoa WHERE dataSaida is null and @codProf = prontuarioProf);
 
---Algumas opÁıes de consulta
+--Algumas op√ß√µes de consulta
 --1
 SELECT * FROM professoresAtuais(1000);
 --2
-SELECT * FROM professoresAtuais(1270); -- N„o funciona pois o professor de prontuario 1270 n„o est· mais na escola
+SELECT * FROM professoresAtuais(1270); -- N√£o funciona pois o professor de prontuario 1270 n√£o est√° mais na escola
 
 
 --FUNCTION 4		
---FunÁ„o para mostrar h· quanto tempo o professor trabalha na escola em MESES
+--Fun√ß√£o para mostrar h√° quanto tempo o professor trabalha na escola em MESES
 GO
 CREATE FUNCTION tempoNaEscola(@codProf int)
 RETURNS int
 AS
 begin
 	declare @dataDemissao date;
-	set @dataDemissao = (select dataSaida from Professor where @codProf = prontuario);
+	set @dataDemissao = (select dataSaida from Professor where @codProf = prontuarioProf);
 	
 	IF (@dataDemissao is null)   
 	begin
-     RETURN (SELECT DATEDIFF(MONTH, dataEntrada, getdate()) FROM Professor where prontuario = @codProf);
+     RETURN (SELECT DATEDIFF(MONTH, dataEntrada, getdate()) FROM Professor where prontuarioProf = @codProf);
 	end
     
-     RETURN (SELECT DATEDIFF(MONTH, dataEntrada, dataSaida) FROM Professor where prontuario = @codProf);
+     RETURN (SELECT DATEDIFF(MONTH, dataEntrada, dataSaida) FROM Professor where prontuarioProf = @codProf);
 end
 
---Algumas opÁıes de consulta
+--Algumas op√ß√µes de consulta
 --1
-SELECT dbo.TempoNaEscola(prontuario) as [Tempo na Escola] FROM PROFESSOR WHERE prontuario = 1000;
+SELECT dbo.TempoNaEscola(prontuarioProf) as [Tempo na Escola] FROM PROFESSOR WHERE prontuarioProf = 1000;
 --2
-SELECT pe.nome, pe.sobrenome, p.prontuario, dbo.TempoNaEscola(prontuario) as [Tempo na Escola], p.dataSaida FROM Professor p 
-		 INNER JOIN Pessoa pe ON p.idPessoa = pe.idPessoa where prontuario = 1000;
+SELECT pe.nomePessoa, pe.sobrenome, p.prontuarioProf, dbo.TempoNaEscola(prontuarioProf) as [Tempo na Escola], p.dataSaida FROM Professor p 
+		 INNER JOIN Pessoa pe ON p.idPessoa = pe.idPessoa where prontuarioProf= 1000;
 --3
-SELECT pe.nome, pe.sobrenome, p.prontuario, dbo.TempoNaEscola(prontuario) as [Tempo na Escola], p.dataSaida FROM Professor p 
-		 INNER JOIN Pessoa pe ON p.idPessoa = pe.idPessoa where prontuario = 1270;
+SELECT pe.nomePessoa, pe.sobrenome, p.prontuarioProf, dbo.TempoNaEscola(prontuarioProf) as [Tempo na Escola], p.dataSaida FROM Professor p 
+		 INNER JOIN Pessoa pe ON p.idPessoa = pe.idPessoa where prontuarioProf = 1270;
 --4
-SELECT pe.nome, pe.sobrenome, p.prontuario, dbo.TempoNaEscola(prontuario) as [Tempo na Escola], p.dataSaida FROM Professor p 
+SELECT pe.nomePessoa, pe.sobrenome, p.prontuarioProf, dbo.TempoNaEscola(prontuarioProf) as [Tempo na Escola], p.dataSaida FROM Professor p 
 		 INNER JOIN Pessoa pe ON p.idPessoa = pe.idPessoa;
 
 --FUNCTION 5 
---FunÁ„o para calcular a mÈdia das notas dos alunos
+--Fun√ß√£o para calcular a m√©dia das notas dos alunos
 GO
 CREATE FUNCTION calculaMedia (@n1 float, @n2 float, @n3 float,@n4 float )
 RETURNS FLOAT
@@ -122,9 +122,9 @@ SELECT * FROM dbo.calculaMedia(10,10,10,10);
 GO
 CREATE VIEW alunoNotas
 AS
-SELECT p.nomePessoa, p.sobrenome, a.prontuario, d.nome, n.n1, n.n2, n.n3, n.n4 FROM Pessoa p
+SELECT p.nomePessoa, p.sobrenome, a.ProntuarioAluno, d.nome, n.n1, n.n2, n.n3, n.n4 FROM Pessoa p
 INNER JOIN Aluno a ON p.idPessoa = a.idPessoa
-INNER JOIN Notas n ON a.Prontuario = n.prontuario
+INNER JOIN Notas n ON a.ProntuarioAluno = n.ProntuarioAluno
 INNER JOIN Disciplina d ON n.idDisciplina = d.idDisciplina;
 
 --Consultando
@@ -167,7 +167,7 @@ CREATE VIEW mostraTurmas
 AS
 SELECT ta.idTurmaAluno, t.idTurma, t.periodo, pe.nomePessoa, pe.sobrenome AS professor FROM Turma t 
 INNER JOIN turmaAluno ta ON t.idTurma = ta.idTurma
-INNER JOIN Professor p ON t.prontuarioProf = p.prontuario
+INNER JOIN Professor p ON t.prontuarioProf = p.prontuarioProf
 INNER JOIN Pessoa pe ON p.idPessoa = pe.idPessoa;
 
 --Consultando
@@ -180,8 +180,8 @@ SELECT * FROM mostraTurmas order by nomePessoa;
 GO
 CREATE VIEW alunoMatricula
 AS
-SELECT m.prontuario, c.nomeCurso, p.nomePessoa, p.sobrenome FROM Matricula m 
-INNER JOIN Aluno a ON m.prontuario = a.Prontuario
+SELECT m.prontuarioAluno, c.nomeCurso, p.nomePessoa, p.sobrenome FROM Matricula m 
+INNER JOIN Aluno a ON m.prontuarioAluno = a.prontuarioAluno
 INNER JOIN Pessoa p ON a.idPessoa = p.idPessoa
 INNER JOIN Curso c ON m.idCurso = c.idCurso;
 
@@ -192,7 +192,7 @@ SELECT * FROM alunoMatricula;
 
 
 --TRIGGER 1
---FunÁ„o para atualizar o status de aprovaÁ„o do aluno
+--Fun√ß√£o para atualizar o status de aprova√ß√£o do aluno
 
 GO
 CREATE TRIGGER atualizaAprovado
@@ -216,16 +216,15 @@ AS
 	IF @n1 is not null AND @n2 is not null AND @n3 is not null AND @n4 IS NOT NULL
 		SET  @media = (SELECT * FROM dbo.calculaMedia(@n1, @n2, @n3, @n4));
 	IF @media >=7
-
-		UPDATE Notas SET aprovado = 0 WHERE prontuario = @prontuario AND idDisciplina = @disciplina;
+		UPDATE Notas SET aprovado = 0 WHERE prontuarioAluno = @prontuario AND idDisciplina = @disciplina;
 	else
-		UPDATE Notas SET aprovado = 1 WHERE prontuario = @prontuario AND idDisciplina = @disciplina;
+		UPDATE Notas SET aprovado = 1 WHERE prontuarioAluno = @prontuario AND idDisciplina = @disciplina;
 
 
 GO
 UPDATE Notas SET n4 = 1 WHERE idDisciplina = 10 AND prontuario = 100;
 
-SELECT * FROM NOTAS WHERE prontuario = 100;
+SELECT * FROM NOTAS WHERE prontuarioAluno = 100;
 
 
 
@@ -239,13 +238,13 @@ AS
 DECLARE @presencas int;
 DECLARE @faltas int;
 SELECT @presencas = presencas FROM inserted;
-UPDATE REPRESENTANTE SET dataDeAtualizacao = GETDATE() WHERE CODIGOREPRESENTANTE = @codigoRepresentante;
-PRINT('A DATA DE MODIFICACAO FOI ATUALIZADA');
+
 
 
 -- TRIGGER 3
--- Atualizar data de ediÁ„o no cadastro da pessoa/
-
+-- Atualizar data de edi√ß√£o no cadastro da pessoa/
+GO
+ALTER TABLE PESSOA ADD dataAtualizacao DATE NULL;
 GO
 CREATE TRIGGER dataAtualizacao 
 on Pessoa
@@ -253,10 +252,10 @@ after update
 as
 	declare @idPessoa int;
 	SELECT @idPessoa = idPessoa FROM inserted;
+	UPDATE PESSOA SET dataAtualizacao = GETDATE() where idPessoa = @idPessoa;
+	print ('A data de atualizacao foi alterada');
 
-	UPDATE PESSOA SET dataAtualizacao = GETDATE() where idPessoa = @idPessoa ;
-
-
+--TESTANDO
 UPDATE PESSOA SET nomePessoa = 'Ana Maria' where idPessoa = 1;
 
 -- TRIGGER 4
@@ -279,37 +278,44 @@ as
 			inner join turmaAluno ta
 			on ta.idTurma = t.idTurma
 			inner join notas n
-			on t.idDisciplina = n.idDisciplina AND n.prontuario = ta.prontuario
+			on t.idDisciplina = n.idDisciplina AND n.ProntuarioAluno = ta.ProntuarioAluno
 			WHERE n.aprovado = 1 AND t.periodoFechado = 1);
 
 			UPDATE turma SET aprovados = @total WHERE idTurma = @idTurma;
+			print('Os dados foram alterados');
 	end
+
+--TESTANDO 
+GO
+UPDATE turma SET periodoFechado = 1  WHERE idTurma = 700;
+select * from Turma;
 
 -- TRIGGER 5
 -- Atualizar vagasRestantes quando um aluno sair da turma/disciplina 
 
 GO
 CREATE TRIGGER atualizaVagas
-ON turmaAluno
+ON turmaAluno 
 AFTER delete
 as
 	DECLARE @turma int;
 	DECLARE @vagas int;
 	SELECT @turma = idTurma FROM inserted;
-	SELECT @vagas = vagasRestantes FROM turma WHERE turma.idTurma = @turma;
-
-	UPDATE Turma SET vagasRestantes = @vagas+1 WHERE idTurma = @turma;
+	SELECT @vagas = vagas FROM curriculoCurso c 
+	inner join Turma t ON c.idDisciplina = t.idDisciplina where t.idTurma = @turma;
+	UPDATE curriculoCurso SET vagas = @vagas+1 (select vagas from curriculoCurso c 
+												inner join Turma t ON c.idDisciplina = t.idDisciplina WHERE idTurma = @turma);
 
 
 --PROCEDURE 1
--- Calcular o sal·rio do prof cordenador
+-- Calcular o sal√°rio do prof cordenador
 GO
 CREATE PROCEDURE salarioProf
 	@idpProf int
 	AS
 		SELECT p.salario+c.comissao FROM Professor p
 		INNER JOIN CordenadorCurso c
-		on p.prontuario = c.prontuarioProf WHERE p.prontuario = @idpProf;
+		on p.prontuarioProf = c.prontuarioProf WHERE p.prontuarioProf = @idpProf;
 
 -- PROCEDURE 2
 -- Tirar um aluno da turma
@@ -317,10 +323,10 @@ GO
 CREATE PROCEDURE deletarAluno
 @aluno int
 AS 
-	DELETE FROM turmaAluno WHERE turmaAluno.prontuario = @aluno;
+	DELETE FROM turmaAluno WHERE turmaAluno.ProntuarioAluno = @aluno;
 
 -- PROCEDURE 3
--- Ver matrÌculas que uma pessoa possui 
+-- Ver matr√≠culas que uma pessoa possui 
 GO 
 CREATE procedure matriculasAluno
 @aluno int
@@ -328,10 +334,37 @@ as
 	SELECT * FROM Matricula M WHERE m.prontuario = @aluno;
 
 -- PROCEDURE 4
--- 
-
+-- criar campo media e um update pra atribuir
+GO
+CREATE PROCEDURE atribuiMedia (@n1 float, @n2 float, @n3 float,@n4 float, @codAluno int )
+AS
+begin
+	declare @media float;
+	SET @n1 = (select n1 from Notas n 
+					inner join Turma t on n.idDisciplina = t.idDisciplina 
+					inner join turmaAluno ta ON t.idTurma = ta.idTurma
+					inner join Aluno a ON ta.ProntuarioAluno = a.ProntuarioAluno
+					where @codAluno = ProntuarioAluno);
+	SET @n2 = (select n2 from Notas n 
+					inner join Turma t on n.idDisciplina = t.idDisciplina 
+					inner join turmaAluno ta ON t.idTurma = ta.idTurma
+					inner join Aluno a ON ta.ProntuarioAluno = a.ProntuarioAluno
+					where @codAluno = ProntuarioAluno);
+	SET @n3 = (select n3 from Notas n 
+					inner join Turma t on n.idDisciplina = t.idDisciplina 
+					inner join turmaAluno ta ON t.idTurma = ta.idTurma
+					inner join Aluno a ON ta.ProntuarioAluno = a.ProntuarioAluno
+					where @codAluno = ProntuarioAluno);
+	SET @n4 = (select n4 from Notas n 
+					inner join Turma t on n.idDisciplina = t.idDisciplina 
+					inner join turmaAluno ta ON t.idTurma = ta.idTurma
+					inner join Aluno a ON ta.ProntuarioAluno = a.ProntuarioAluno
+					where @codAluno = ProntuarioAluno);
+	SET @media = (@n1+@n2+@n3+@n4)/4;
+	update Notas set media = @media where @codAluno = ProntuarioAluno;
+     RETURN @media;
+end;
 
 -- PROCEDURE 5
 --
-
 
