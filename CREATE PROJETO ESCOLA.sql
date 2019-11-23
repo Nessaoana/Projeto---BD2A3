@@ -1,5 +1,6 @@
+go
 CREATE DATABASE PROJETOESCOLA;
-
+GO
 USE PROJETOESCOLA;
 
 GO
@@ -42,32 +43,34 @@ CREATE TABLE Pessoa (
 GO
 CREATE TABLE Aluno (
   idPessoa INT NOT NULL,
-  Prontuario INT NOT NULL PRIMARY KEY,
-  INDEX alunoPessoa_idx (idPessoa ASC),
+  ProntuarioAluno INT NOT NULL PRIMARY KEY,
+  INDEX alunoPessoa_idx (ProntuarioAluno ASC),
   CONSTRAINT alunoPessoa FOREIGN KEY (idPessoa) REFERENCES Pessoa(idPessoa)
  );
 
+ GO
  CREATE TABLE Departamento (
   idDepartamento INT NOT NULL PRIMARY KEY,
   sigla VARCHAR(3) NOT NULL,
   descricao VARCHAR(45) NULL,
 );
 
+GO
 CREATE TABLE Professor (
-  prontuario INT NOT NULL PRIMARY KEY,
+  prontuarioProf INT NOT NULL PRIMARY KEY,
   idPessoa INT NULL,
   salario FLOAT NULL,
   dataEntrada DATE NULL,
   dataSaida DATE NULL,
   idDepartamento INT NULL,
   titulacao VARCHAR(45) NULL,
-  INDEX professorPessoa_idx (idPessoa ASC),
+  INDEX professorPessoa_idx (prontuarioProf ASC),
   INDEX professorDepartamento_idx (idDepartamento ASC),
   CONSTRAINT professorPessoa FOREIGN KEY (idPessoa) REFERENCES Pessoa (idPessoa),
-
   CONSTRAINT professorDepartamento FOREIGN KEY (idDepartamento) REFERENCES Departamento (idDepartamento)
 );
 
+GO
 CREATE TABLE Telefone (
   idTelefone INT NOT NULL PRIMARY KEY ,
   idPessoa INT NULL,
@@ -77,23 +80,26 @@ CREATE TABLE Telefone (
   CONSTRAINT pessoa_FK FOREIGN KEY (idPessoa) REFERENCES Pessoa (idPessoa)
 );
 
+GO
 CREATE TABLE Curso (
   idCurso INT NOT NULL PRIMARY KEY,
-  nome VARCHAR(45) NULL,
+  nomeCurso VARCHAR(45) NULL,
   sigla VARCHAR(45) NULL,
   totalSemestres INT NULL
 );
 
+GO
 CREATE TABLE Matricula (
   matricula INT NOT NULL PRIMARY KEY, --  'taxaConclusao (procedure/function)'
-  prontuario INT NULL,
+  prontuarioAluno INT NULL,
   idCurso INT NULL,
-  INDEX matriculaAluno_idx (prontuario ASC),
+  INDEX matriculaAluno_idx (ProntuarioAluno ASC),
   INDEX matriculaCurso_idx (idCurso ASC),
-  CONSTRAINT matriculaAluno FOREIGN KEY (prontuario) REFERENCES Aluno (Prontuario),
+  CONSTRAINT matriculaAluno FOREIGN KEY (prontuarioAluno) REFERENCES Aluno (ProntuarioAluno),
   CONSTRAINT matriculaCurso FOREIGN KEY (idCurso) REFERENCES Curso (idCurso)
 );
 
+GO
 CREATE TABLE CordenadorCurso (
   idCordenadorCurso INT NOT NULL PRIMARY KEY,
   prontuarioProf INT NULL,
@@ -103,10 +109,11 @@ CREATE TABLE CordenadorCurso (
   comissao FLOAT NULL,
   INDEX professorCordenador_idx (prontuarioProf ASC),
   INDEX cursoCordenador_idx (idCurso ASC),
-  CONSTRAINT professorCordenador FOREIGN KEY (prontuarioProf) REFERENCES Professor (prontuario),
+  CONSTRAINT professorCordenador FOREIGN KEY (prontuarioProf) REFERENCES Professor (prontuarioProf),
   CONSTRAINT cursoCordenador FOREIGN KEY (idCurso) REFERENCES Curso (idCurso)
 );
 
+GO
 CREATE TABLE Disciplina (
   idDisciplina INT NOT NULL PRIMARY KEY ,
   codigo VARCHAR(45) NULL,
@@ -117,6 +124,7 @@ CREATE TABLE Disciplina (
 
 
 -- ALTERADA
+GO
 CREATE TABLE curriculoCurso (
   idCurso INT NOT NULL,
   idDisciplina INT NULL,
@@ -129,28 +137,31 @@ CREATE TABLE curriculoCurso (
 );
 
 -- ALTERADO
+GO
 CREATE TABLE Turma (
   idTurma INT NOT NULL,
   idDisciplina INT NULL,
   periodo VARCHAR(6) NULL,
   prontuarioProf INT NULL,
-  periodoFechado tinyint null,
+  periodoFechado BIT null,
   aprovados int null,
   PRIMARY KEY (idTurma),
   INDEX disciplinaTurma_idx (idDisciplina ASC),
   INDEX disciplinaProfessor_idx (prontuarioProf ASC),
   CONSTRAINT disciplinaTurma FOREIGN KEY (idDisciplina) REFERENCES Disciplina (idDisciplina),
-  CONSTRAINT disciplinaProfessor FOREIGN KEY (prontuarioProf) REFERENCES Professor (prontuario)
+  CONSTRAINT disciplinaProfessor FOREIGN KEY (prontuarioProf) REFERENCES Professor (prontuarioProf)
 );
 
+GO
 CREATE TABLE turmaAluno (
   idTurmaAluno INT not null PRIMARY KEY,
-  prontuario INT NOT NULL,
+  ProntuarioAluno INT NOT NULL,
   idTurma INT NULL,
-  CONSTRAINT alunoTurma_FK FOREIGN KEY (prontuario) REFERENCES Aluno (Prontuario),
+  CONSTRAINT alunoTurma_FK FOREIGN KEY (ProntuarioAluno) REFERENCES Aluno (ProntuarioAluno),
   CONSTRAINT turmaAluno_FK FOREIGN KEY (idTurma) REFERENCES Turma(idTurma)
 );
 
+GO
 CREATE TABLE Frequencia (
   idFrequencia INT NOT NULL PRIMARY KEY,
   idTurmaAluno INT NULL,
@@ -159,23 +170,26 @@ CREATE TABLE Frequencia (
   CONSTRAINT turmaAlunoFrequencia FOREIGN KEY (idTurmaAluno) REFERENCES turmaAluno (idTurmaAluno)
 );
 
+GO
 CREATE TABLE Notas (
 	idDisciplina int NULL,
-	prontuario int NULL,
+	ProntuarioAluno int NULL,
 	n1 FLOAT NULL,
 	n2 FLOAT NULL,
 	n3 FLOAT NULL,
 	n4 FLOAT NULL,
 	aprovado BIT,
-	CONSTRAINT alunoNota_FK FOREIGN KEY (prontuario) REFERENCES Aluno (Prontuario),
+	CONSTRAINT alunoNota_FK FOREIGN KEY (ProntuarioAluno) REFERENCES Aluno (ProntuarioAluno),
 	CONSTRAINT alunoDisciplina_FK FOREIGN KEY (idDisciplina) REFERENCES Disciplina (idDisciplina)
-)
+);
 
 GO
 ALTER TABLE Pessoa ALTER COLUMN sexo char(1);
+GO
 ALTER TABLE Turma ALTER COLUMN periodo char(1);
+GO
 ALTER TABLE Estado ALTER COLUMN sigla char(2);
+GO
 ALTER TABLE Curso ADD nivel varchar(20);
-exec sp_rename 'Curso.[nome]', 'nomeCurso', 'column';
-
-
+GO
+ALTER TABLE Notas ADD media float null;
