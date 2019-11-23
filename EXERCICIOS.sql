@@ -288,25 +288,50 @@ as
 -- TRIGGER 5
 -- Atualizar vagasRestantes quando um aluno sair da turma/disciplina 
 
+GO
+CREATE TRIGGER atualizaVagas
+ON turmaAluno
+AFTER delete
+as
+	DECLARE @turma int;
+	DECLARE @vagas int;
+	SELECT @turma = idTurma FROM inserted;
+	SELECT @vagas = vagasRestantes FROM turma WHERE turma.idTurma = @turma;
 
+	UPDATE Turma SET vagasRestantes = @vagas+1 WHERE idTurma = @turma;
 
 
 --PROCEDURE 1
 -- Calcular o salário do prof cordenador
-
+GO
+CREATE PROCEDURE salarioProf
+	@idpProf int
+	AS
+		SELECT p.salario+c.comissao FROM Professor p
+		INNER JOIN CordenadorCurso c
+		on p.prontuario = c.prontuarioProf WHERE p.prontuario = @idpProf;
 
 -- PROCEDURE 2
 -- Tirar um aluno da turma
-
+GO
+CREATE PROCEDURE deletarAluno
+@aluno int
+AS 
+	DELETE FROM turmaAluno WHERE turmaAluno.prontuario = @aluno;
 
 -- PROCEDURE 3
 -- Ver matrículas que uma pessoa possui 
-
+GO 
+CREATE procedure matriculasAluno
+@aluno int
+as 
+	SELECT * FROM Matricula M WHERE m.prontuario = @aluno;
 
 -- PROCEDURE 4
 -- 
 
 
 -- PROCEDURE 5
+--
 
 
