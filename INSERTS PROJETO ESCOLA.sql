@@ -2,58 +2,58 @@ use PROJETOESCOLA;
 
 GO
 INSERT INTO Estado([idEstado],[nome],[sigla]) VALUES
-(1,'S„o Paulo','SP'),(2,'Paran·','PR'),(3,'Maranh„o','MA'),(4,'Minas Gerais','MG'),
-(5,'Acre','AC'),(6,'Alagoas','AL'),(7,'Amap·','AP'),
-(8,'Amazonas','AM'),(9,'Bahia','BA'),(10,'Cear·','CE'),
-(11,'Distrito Federal','DF'),(12,'EspÌrito Santo','ES'),(13,'Goi·s','GO'),
-(14,'Mato Grosso','MT'),(15,'Mato Grosso do Sul','MS'),(16,'Par·','PA'),
-(17,'ParaÌba','PB'), (18,'Pernambuco','PE'),(19,'PiauÌ','PI'),(20,'Rio de Janeiro','RJ'),
+(1,'S√£o Paulo','SP'),(2,'Paran√°','PR'),(3,'Maranh√£o','MA'),(4,'Minas Gerais','MG'),
+(5,'Acre','AC'),(6,'Alagoas','AL'),(7,'Amap√°','AP'),
+(8,'Amazonas','AM'),(9,'Bahia','BA'),(10,'Cear√°','CE'),
+(11,'Distrito Federal','DF'),(12,'Esp√≠rito Santo','ES'),(13,'Goi√°s','GO'),
+(14,'Mato Grosso','MT'),(15,'Mato Grosso do Sul','MS'),(16,'Par√°','PA'),
+(17,'Para√≠ba','PB'), (18,'Pernambuco','PE'),(19,'Piau√≠','PI'),(20,'Rio de Janeiro','RJ'),
 (21,'Rio Grande do Norte','RN'),(22,'Rio Grande do Sul','RS'),
-(23,'RondÙnia','RO'),(24,'Roraima','RR'),(25,'Santa Catarina','SC'),
+(23,'Rond√¥nia','RO'),(24,'Roraima','RR'),(25,'Santa Catarina','SC'),
 (26,'Sergipe','SE'),(27,'Tocantins','TO');
 
 GO
 INSERT INTO Endereco([idEndereco],[rua],[bairro],[numero],[complemento],[CEP],[idEstado],[cidade]) VALUES
-(1,'Rua da GraÁa','Azul',73,NULL,'96456958',22,'Caxias do Sul'),
-(2,'Rua Lim„o','Verde',40,NULL ,'18455139',1,'Ribeir„o Preto'),
+(1,'Rua da Gra√ßa','Azul',73,NULL,'96456958',22,'Caxias do Sul'),
+(2,'Rua Lim√£o','Verde',40,NULL ,'18455139',1,'Ribeir√£o Preto'),
 (3,'Rua Laranja','Amarelo',19,NULL,'30051385',4,'Governador Valadares'),
 (4,'Rua Manga','Laranja',43,NULL,'61938813',10,'Crato'),
 (5,'Rua Morango','Vermelho',92,NULL,'91231918',22,'Porto Alegre'),
-(6,'Rua LinguiÁa','Marrom',45,NULL,'63352300',10,'Juazeiro do Norte'),
-(7,'Rua Manteiga','Preto',45,NULL,'14778142',1,'Ribeir„o Preto'),
+(6,'Rua Lingui√ßa','Marrom',45,NULL,'63352300',10,'Juazeiro do Norte'),
+(7,'Rua Manteiga','Preto',45,NULL,'14778142',1,'Ribeir√£o Preto'),
 (8,'Rua Margarina','Rosa',98,NULL,'83993140',2,'Ponta Grossa'),
 (9,'Rua Uva','Massa',2,NULL,'17025932',1,'Piracicaba'),
-(10,'Rua ¡gua','Gravida',56,NULL,'89380977',25,'Joinville'),
+(10,'Rua √Ågua','Gravida',56,NULL,'89380977',25,'Joinville'),
 (11,'Rua Rio doce','Semper',99,NULL,'45694544',9,'Juazeiro'),
-(12,'Avenida Raimundo','PC',32,NULL,'23834690',20,'NiterÛi'),
-(13,'Avenida Bola de Cristal','Noki',58,NULL,'89396120',25,'FlorianÛpolis'),
+(12,'Avenida Raimundo','PC',32,NULL,'23834690',20,'Niter√≥i'),
+(13,'Avenida Bola de Cristal','Noki',58,NULL,'89396120',25,'Florian√≥polis'),
 (14,'Avenida SQL Server','Ipsum',42,NULL,'42388467',9,'Salvador'),
-(15,'Avenida MySQL','Aliqueta',40,NULL,'20436984',20,'S„o GonÁalo'),
+(15,'Avenida MySQL','Aliqueta',40,NULL,'20436984',20,'S√£o Gon√ßalo'),
 (16,'Alameda Nothmann','Matti',15,NULL,'48222824',9,'Itabuna'),
-(17,'Alameda dos Santos','Sagitti',92,NULL,'19954782',1,'Ribeir„o Preto'),
+(17,'Alameda dos Santos','Sagitti',92,NULL,'19954782',1,'Ribeir√£o Preto'),
 (18,'Alameda da Silva','Pretium',3,NULL,'11580196',1,'Osasco'),
 (19,'Alameda Ribeiro','Industries',20,NULL,'58985450',17,'Santa Rita'),
-(20,'Rua Macarr„o','Aenean',93,NULL,'30654436',4,'Montes Claros'),
-(21,'Rua Arroz','Male',18,NULL,'66238148',16,'Marab·'),
-(22,'Rua Feij„o','Miado',12,NULL,'83782214',2,'S„o JosÈ dos Pinhais'),
+(20,'Rua Macarr√£o','Aenean',93,NULL,'30654436',4,'Montes Claros'),
+(21,'Rua Arroz','Male',18,NULL,'66238148',16,'Marab√°'),
+(22,'Rua Feij√£o','Miado',12,NULL,'83782214',2,'S√£o Jos√© dos Pinhais'),
 (23,'Rua Peixe','Lorem',6,NULL,'86240364',2,'Colombo'),
-(24,'Rua Carne','Cursus',4,NULL,'89448794',25,'ItajaÌ'),
+(24,'Rua Carne','Cursus',4,NULL,'89448794',25,'Itaja√≠'),
 (25,'Rua Salsicha','Cinza',32,NULL,'17321703',1,'Diadema'),
-(26,'Rua Yakisoba','Sedento',66,NULL,'15430026',1,'Mau·'),
-(27,'Avenida Gohan','Interdum',23,NULL,'14417276',1,'Mau·'),
-(28,'Avenida Til·pia','Libero',25,NULL,'43638312',9,'Feira de Santana'),
-(29,'Avenida Salm„o','Nunca',97,NULL,'44001191',9,'VitÛria da Conquista'),
+(26,'Rua Yakisoba','Sedento',66,NULL,'15430026',1,'Mau√°'),
+(27,'Avenida Gohan','Interdum',23,NULL,'14417276',1,'Mau√°'),
+(28,'Avenida Til√°pia','Libero',25,NULL,'43638312',9,'Feira de Santana'),
+(29,'Avenida Salm√£o','Nunca',97,NULL,'44001191',9,'Vit√≥ria da Conquista'),
 (30,'Avenida Pacu','Netus',63,NULL,'21960912',20,'Belford Roxo'),
 (31,'Alameda Carpa','Turpis ',30,NULL,'41383694',9,'Lauro de Freitas'),
 (32,'Alameda Bagre','Pellentesque',70,NULL,'63508585',10,'Juazeiro do Norte'),
 (33,'Alameda Catfish','Augue',40,NULL,'22482941',20,'Rio de Janeiro'),
-(34,'Alameda Pintado','Arco',63,NULL,'76773087',13,'Aparecida de Goi‚nia'),
-(35,'Avenida Piau','Accusa',14,NULL,'21449958',20,'Nova IguaÁu'),
-(36,'Rua TucunarÈ','Lacus',33,NULL,'36294883',4,'Betim'),
-(37,'Rua Tambaqui','Nulla',7,NULL,'24842992',20,'NiterÛi'),
-(38,'Rua Carangueijo','Faucibus',66,NULL,'39970654',4,'Ribeir„o das Neves'),
-(39,'Rua Golfinho','Quisque',92,NULL,'76792057',13,'ValparaÌso de Goi·s'),
-(40,'Rua Tubar„o','Sagit·rio',19,NULL,'12178994',1,'CarapicuÌba');
+(34,'Alameda Pintado','Arco',63,NULL,'76773087',13,'Aparecida de Goi√¢nia'),
+(35,'Avenida Piau','Accusa',14,NULL,'21449958',20,'Nova Igua√ßu'),
+(36,'Rua Tucunar√©','Lacus',33,NULL,'36294883',4,'Betim'),
+(37,'Rua Tambaqui','Nulla',7,NULL,'24842992',20,'Niter√≥i'),
+(38,'Rua Carangueijo','Faucibus',66,NULL,'39970654',4,'Ribeir√£o das Neves'),
+(39,'Rua Golfinho','Quisque',92,NULL,'76792057',13,'Valpara√≠so de Goi√°s'),
+(40,'Rua Tubar√£o','Sagit√°rio',19,NULL,'12178994',1,'Carapicu√≠ba');
 
 GO
 INSERT INTO Pessoa([idPessoa],[idEndereco],[nomePessoa],[sobrenome],[CPF],[RG],[sexo]) VALUES
@@ -108,18 +108,18 @@ GO
 INSERT INTO Departamento([idDepartamento],[sigla],[descricao]) VALUES
 (10,'EXA','Exatas'),
 (20,'HUM','Humanas'),
-(30,'BIO','BiolÛgicas'),
+(30,'BIO','Biol√≥gicas'),
 (40,'OUT','Outros');
 
 GO
 INSERT INTO Professor([prontuario],[IdPessoa],[salario],[dataEntrada],[dataSaida],[idDepartamento],[titulacao]) VALUES
-(1000,31,9447,'2006-03-13',NULL,10,'GraduaÁ„o'),
-(1030,32,1249.5,'2012-03-31',NULL,20,'PÛs-GraduaÁ„o'),
-(1060,33,8650,'2006-10-14',NULL,30,'GraduaÁ„o'),
-(1090,34,8862,'2016-05-04',NULL,40,'PÛs-GraduaÁ„o'),
-(1120,35,1223.77,'2016-07-04',NULL,10,'PÛs-GraduaÁ„o'),
+(1000,31,9447,'2006-03-13',NULL,10,'Gradua√ß√£o'),
+(1030,32,1249.5,'2012-03-31',NULL,20,'P√≥s-Gradua√ß√£o'),
+(1060,33,8650,'2006-10-14',NULL,30,'Gradua√ß√£o'),
+(1090,34,8862,'2016-05-04',NULL,40,'P√≥s-Gradua√ß√£o'),
+(1120,35,1223.77,'2016-07-04',NULL,10,'P√≥s-Gradua√ß√£o'),
 (1150,36,14240,'2010-08-09',NULL,20,'Mestre'),
-(1180,37,11510,'2012-04-19',NULL,30,'GraduaÁ„o'),
+(1180,37,11510,'2012-04-19',NULL,30,'Gradua√ß√£o'),
 (1210,38,11491,'2002-11-05',NULL,40,'Mestre'),
 (1240,39,1438.09,'2016-12-05 ',NULL,10,'Doutor'),
 (1270,40,11645.45,'2015-06-27 ','2018-12-15',20,'Doutor');
@@ -141,9 +141,9 @@ INSERT INTO Telefone([idTelefone],[IdPessoa],[DDD],[numero]) VALUES
 
 GO
 INSERT INTO Curso([idCurso],[nomeCurso],[sigla],[totalSemestres]) VALUES
-(300,'An·lise de Sistemas','ADS',6),(310,'CiÍncia da ComputaÁ„o','CC',8),(320,'Sistemas da InformaÁ„o','SI',6),
-(330,'Inform·tica','INFO',5),(340,'Tecnologia e CiÍncia','TUR',5),(350,'Engenharia Tecnomec‚nica','EM',8),
-(360,'Engenharia da InformaÁ„o','EQ',8),(370,'Engenharia de Hardware','EP',8),(380,'AdministraÁ„o TecnolÛgica','ADM',8),(390,'Medicina TecnolÛgica','MED',10);
+(300,'An√°lise de Sistemas','ADS',6),(310,'Ci√™ncia da Computa√ß√£o','CC',8),(320,'Sistemas da Informa√ß√£o','SI',6),
+(330,'Inform√°tica','INFO',5),(340,'Tecnologia e Ci√™ncia','TUR',5),(350,'Engenharia Tecnomec√¢nica','EM',8),
+(360,'Engenharia da Informa√ß√£o','EQ',8),(370,'Engenharia de Hardware','EP',8),(380,'Administra√ß√£o Tecnol√≥gica','ADM',8),(390,'Medicina Tecnol√≥gica','MED',10);
 
 GO
 INSERT INTO Matricula([matricula],[prontuario],[idCurso]) VALUES
@@ -169,15 +169,15 @@ INSERT INTO CordenadorCurso([idCordenadorCurso],[prontuarioProf],[idCurso],[data
 
 GO
 INSERT INTO Disciplina([idDisciplina],[codigo],[nome],[cargaHoraria],[aulas]) VALUES
-(10,'MAT','Matem·tica',300,300),
-(11,'LOP','LÛgica de ProgramaÁ„o',500,500),
-(12,'LGP','Linguagem de ProgramaÁ„o',500,500),
+(10,'MAT','Matem√°tica',300,300),
+(11,'LOP','L√≥gica de Programa√ß√£o',500,500),
+(12,'LGP','Linguagem de Programa√ß√£o',500,500),
 (13,'BD','Banco de Dados',500,500),
-(14,'ADM','AdministraÁ„o',100,100),
-(15,'ING','InglÍs',100,100),
+(14,'ADM','Administra√ß√£o',100,100),
+(15,'ING','Ingl√™s',100,100),
 (16,'WEB','Desenvolvimento Web',100,100),
-(17,'SEG','SeguranÁa da InformaÁ„o',100,100),
-(18,'HIS','HistÛria',100,100),
+(17,'SEG','Seguran√ßa da Informa√ß√£o',100,100),
+(18,'HIS','Hist√≥ria',100,100),
 (19,'PS','Primeiros Socorros',100,100);
 
 GO
@@ -192,6 +192,27 @@ INSERT INTO CurriculoCurso([idCurso],[idDisciplina],[semestre]) VALUES
 (370,10,1),(370,11,2),(370,12,3),(370,13,4),(370,14,5),(370,15,6),(370,16,7),(370,17,8),
 (380,10,1),(380,11,2),(380,12,3),(380,13,4),(380,14,5),(380,15,6),(380,16,7),(380,17,8),
 (390,10,1),(390,11,2),(390,12,3),(390,13,4),(390,14,5),(390,15,6),(390,16,7),(390,17,8),(390,18,9),(390,19,10);
+
+GO
+UPDATE curriculoCurso SET vagas = 15 WHERE idCurso = 300;
+GO
+UPDATE curriculoCurso SET vagas = 15 WHERE idCurso = 310;
+GO
+UPDATE curriculoCurso SET vagas = 15 WHERE idCurso = 320;
+GO
+UPDATE curriculoCurso SET vagas = 15 WHERE idCurso = 330;
+GO
+UPDATE curriculoCurso SET vagas = 15 WHERE idCurso = 340;
+GO
+UPDATE curriculoCurso SET vagas = 15 WHERE idCurso = 350;
+GO
+UPDATE curriculoCurso SET vagas = 15 WHERE idCurso = 360;
+GO
+UPDATE curriculoCurso SET vagas = 15 WHERE idCurso = 370;
+GO
+UPDATE curriculoCurso SET vagas = 15 WHERE idCurso = 380;
+GO
+UPDATE curriculoCurso SET vagas = 15 WHERE idCurso = 390;
 
 GO
 INSERT INTO Turma([idTurma],[idDisciplina],[periodo],[prontuarioProf]) VALUES
@@ -242,23 +263,36 @@ INSERT INTO Frequencia([idFrequencia],[idTurmaAluno],[presencas]) VALUES
 
 GO 
 UPDATE Curso SET nivel = 'Tecnologo' WHERE idCurso = 300;
+GO 
 UPDATE Curso SET nivel = 'Tecnologo' WHERE idCurso = 340;
+GO 
 UPDATE Curso SET nivel = 'Superior' WHERE idCurso = 310;
+GO 
 UPDATE Curso SET nivel = 'Superior' WHERE idCurso = 320;
+GO 
 UPDATE Curso SET nivel = 'Superior' WHERE idCurso = 350;
+GO 
 UPDATE Curso SET nivel = 'Superior' WHERE idCurso = 360;
+GO 
 UPDATE Curso SET nivel = 'Superior' WHERE idCurso = 370;
+GO 
 UPDATE Curso SET nivel = 'Superior' WHERE idCurso = 380;
+GO 
 UPDATE Curso SET nivel = 'Superior' WHERE idCurso = 390;
+GO 
 UPDATE Curso SET nivel = 'Tecnico' WHERE idCurso = 330;
+GO 
 UPDATE Curso SET sigla = 'TEC' WHERE idCurso = 340;
+GO 
 UPDATE Curso SET sigla = 'ET' WHERE idCurso = 350;
+GO 
 UPDATE Curso SET sigla = 'EI' WHERE idCurso = 360;
+GO 
 UPDATE Curso SET sigla = 'EH' WHERE idCurso = 370;
 
 GO
 INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VALUES
-(10,100,6,2,8,null,NULL),
+(10,100,6,2,8,7,NULL),
 (11,100,3,6,9,10,NULL),
 (12,100,10,5,4,8,NULL),
 (13,100,1,1,7,6,NULL),
