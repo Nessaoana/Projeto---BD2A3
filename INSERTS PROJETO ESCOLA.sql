@@ -99,7 +99,7 @@ INSERT INTO Pessoa([idPessoa],[idEndereco],[nomePessoa],[sobrenome],[CPF],[RG],[
 (40,40,'Erich','Barron','16340415750','232023317','M');
 
 GO
-INSERT INTO Aluno([idPessoa],[prontuario]) VALUES
+INSERT INTO Aluno([idPessoa],[ProntuarioAluno]) VALUES
 (1,100),(2,105),(3,110),(4,115),(5,120),(6,125),(7,130),(8,135),(9,140),(10,145),
 (11,150),(12,155),(13,160),(14,165),(15,170),(16,175),(17,180),(18,185),(19,190),(20,195),
 (21,200),(22,205),(23,210),(24,215),(25,220),(26,225),(27,230),(28,235),(29,240),(30,245);
@@ -112,7 +112,7 @@ INSERT INTO Departamento([idDepartamento],[sigla],[descricao]) VALUES
 (40,'OUT','Outros');
 
 GO
-INSERT INTO Professor([prontuario],[IdPessoa],[salario],[dataEntrada],[dataSaida],[idDepartamento],[titulacao]) VALUES
+INSERT INTO Professor([prontuarioProf],[IdPessoa],[salario],[dataEntrada],[dataSaida],[idDepartamento],[titulacao]) VALUES
 (1000,31,9447,'2006-03-13',NULL,10,'Graduação'),
 (1030,32,1249.5,'2012-03-31',NULL,20,'Pós-Graduação'),
 (1060,33,8650,'2006-10-14',NULL,30,'Graduação'),
@@ -146,7 +146,7 @@ INSERT INTO Curso([idCurso],[nomeCurso],[sigla],[totalSemestres]) VALUES
 (360,'Engenharia da Informação','EQ',8),(370,'Engenharia de Hardware','EP',8),(380,'Administração Tecnológica','ADM',8),(390,'Medicina Tecnológica','MED',10);
 
 GO
-INSERT INTO Matricula([matricula],[prontuario],[idCurso]) VALUES
+INSERT INTO Matricula([matricula],[ProntuarioAluno],[idCurso]) VALUES
 (100,100,300),(105,105,320),(110,110,340),(115,115,360),(120,120,380),
 (125,125,300),(130,130,320),(135,135,340),(140,140,360),(145,145,380),
 (150,150,300),(155,155,320),(160,160,340),(165,165,360),(170,170,380),
@@ -238,7 +238,7 @@ INSERT INTO Turma([idTurma],[idDisciplina],[periodo],[prontuarioProf]) VALUES
 (719,19,'N',1270);
 
 GO
-INSERT INTO turmaAluno([idTurmaAluno],[prontuario],[idTurma]) VALUES
+INSERT INTO turmaAluno([idTurmaAluno],[ProntuarioAluno],[idTurma]) VALUES
 (700,100,700),(701,105,701),(702,110,702),
 (703,115,703),(704,120,704),(705,125,705),
 (706,130,706),(707,135,707),(708,140,708),(709,145,709),
@@ -291,7 +291,7 @@ GO
 UPDATE Curso SET sigla = 'EH' WHERE idCurso = 370;
 
 GO
-INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VALUES
+INSERT INTO Notas([idDisciplina],[ProntuarioAluno],[n1],[n2],[n3],[n4],[aprovado]) VALUES
 (10,100,6,2,8,7,NULL),
 (11,100,3,6,9,10,NULL),
 (12,100,10,5,4,8,NULL),
@@ -299,7 +299,7 @@ INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VA
 (14,100,2,9,6,6,NULL),
 (15,100,7,7,3,5,NULL);
 GO
-INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VALUES
+INSERT INTO Notas([idDisciplina],[ProntuarioAluno],[n1],[n2],[n3],[n4],[aprovado]) VALUES
 (10,105,4,2,6,6,NULL),
 (11,105,4,1,2,9,NULL),
 (12,105,7,10,9,10,NULL),
@@ -307,14 +307,14 @@ INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VA
 (14,105,3,9,9,1,NULL),
 (15,105,10,1,6,10,NULL);
 GO
-INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VALUES
+INSERT INTO Notas([idDisciplina],[ProntuarioAluno],[n1],[n2],[n3],[n4],[aprovado]) VALUES
 (10,110,4,6,1,3,NULL),
 (11,110,1,4,8,6,NULL),
 (12,110,1,6,7,8,NULL),
 (13,110,6,1,5,10,NULL),
 (14,110,9,10,6,2,NULL);
 GO
-INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VALUES
+INSERT INTO Notas([idDisciplina],[ProntuarioAluno],[n1],[n2],[n3],[n4],[aprovado]) VALUES
 (10,115,9,2,2,10,NULL),
 (11,115,7,9,1,3,NULL),
 (12,115,3,5,4,10,NULL),
@@ -326,7 +326,7 @@ INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VA
 (18,115,10,1,6,10,NULL),
 (19,115,8,6,8,8,NULL);
 GO
-INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VALUES
+INSERT INTO Notas([idDisciplina],[ProntuarioAluno],[n1],[n2],[n3],[n4],[aprovado]) VALUES
 (10,120,7,5,8,4,NULL),
 (11,120,4,6,8,2,NULL),
 (12,120,10,5,5,6,NULL),
@@ -336,7 +336,7 @@ INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VA
 (16,120,7,8,4,6,NULL),
 (17,120,9,1,5,2,NULL);
 GO
-INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VALUES
+INSERT INTO Notas([idDisciplina],[ProntuarioAluno],[n1],[n2],[n3],[n4],[aprovado]) VALUES
 (10,125,2,3,7,10,NULL),
 (11,125,8,1,7,9,NULL),
 (12,125,9,10,6,9,NULL),
@@ -344,7 +344,7 @@ INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VA
 (14,125,10,7,1,7,NULL),
 (15,125,1,2,4,2,NULL);
 GO
-INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VALUES
+INSERT INTO Notas([idDisciplina],[ProntuarioAluno],[n1],[n2],[n3],[n4],[aprovado]) VALUES
 (10,130,2,1,10,5,NULL),
 (11,130,8,10,10,4,NULL),
 (12,130,4,5,3,6,NULL),
@@ -352,14 +352,14 @@ INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VA
 (14,130,7,1,2,8,NULL),
 (15,130,1,8,2,10,NULL);
 go
-INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VALUES
+INSERT INTO Notas([idDisciplina],[ProntuarioAluno],[n1],[n2],[n3],[n4],[aprovado]) VALUES
 (10,135,8,3,9,2,NULL),
 (11,135,3,2,7,1,NULL),
 (12,135,8,3,6,3,NULL),
 (13,135,1,1,3,9,NULL),
 (14,135,7,5,1,4,NULL);
 GO
-INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VALUES
+INSERT INTO Notas([idDisciplina],[ProntuarioAluno],[n1],[n2],[n3],[n4],[aprovado]) VALUES
 (10,140,5,4,3,5,NULL),
 (11,140,6,8,2,10,NULL),
 (12,140,6,5,6,2,NULL),
@@ -371,7 +371,7 @@ INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VA
 (18,140,1,8,10,4,NULL),
 (19,140,1,9,3,9,NULL);
 GO
-INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VALUES
+INSERT INTO Notas([idDisciplina],[ProntuarioAluno],[n1],[n2],[n3],[n4],[aprovado]) VALUES
 (10,145,5,4,1,6,NULL),
 (11,145,9,7,3,9,NULL),
 (12,145,9,7,10,2,NULL),
@@ -381,7 +381,7 @@ INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VA
 (16,145,6,1,3,6,NULL),
 (17,145,10,9,5,6,NULL);
 GO
-INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VALUES
+INSERT INTO Notas([idDisciplina],[ProntuarioAluno],[n1],[n2],[n3],[n4],[aprovado]) VALUES
 (10,150,5,4,1,4,NULL),
 (11,150,9,6,8,7,NULL),
 (12,150,3,10,9,8,NULL),
@@ -389,7 +389,7 @@ INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VA
 (14,150,5,7,7,8,NULL),
 (15,150,9,6,8,7,NULL);
 GO
-INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VALUES
+INSERT INTO Notas([idDisciplina],[ProntuarioAluno],[n1],[n2],[n3],[n4],[aprovado]) VALUES
 (10,155,2,9,5,8,NULL),
 (11,155,2,8,5,2,NULL),
 (12,155,2,8,9,1,NULL),
@@ -397,14 +397,14 @@ INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VA
 (14,155,3,8,3,8,NULL),
 (15,155,2,6,6,5,NULL);
 GO
-INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VALUES
+INSERT INTO Notas([idDisciplina],[ProntuarioAluno],[n1],[n2],[n3],[n4],[aprovado]) VALUES
 (10,160,6,2,8,7,NULL),
 (11,160,3,6,9,10,NULL),
 (12,160,10,5,4,8,NULL),
 (13,160,1,1,7,6,NULL),
 (14,160,2,9,6,6,NULL);
 GO
-INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VALUES
+INSERT INTO Notas([idDisciplina],[ProntuarioAluno],[n1],[n2],[n3],[n4],[aprovado]) VALUES
 (10,165,4,2,6,6,NULL),
 (11,165,4,1,2,9,NULL),
 (12,165,7,10,9,10,NULL),
@@ -416,7 +416,7 @@ INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VA
 (18,165,8,9,4,4,NULL),
 (19,165,8,5,10,9,NULL);
 GO
-INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VALUES
+INSERT INTO Notas([idDisciplina],[ProntuarioAluno],[n1],[n2],[n3],[n4],[aprovado]) VALUES
 (10,170,4,6,1,3,NULL),
 (11,170,1,4,8,6,NULL),
 (12,170,1,6,7,8,NULL),
@@ -426,7 +426,7 @@ INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VA
 (16,170,7,1,3,3,NULL),
 (17,170,7,10,4,7,NULL);
 GO
-INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VALUES
+INSERT INTO Notas([idDisciplina],[ProntuarioAluno],[n1],[n2],[n3],[n4],[aprovado]) VALUES
 (10,175,9,2,2,10,NULL),
 (11,175,7,9,1,3,NULL),
 (12,175,3,5,4,10,NULL),
@@ -436,14 +436,14 @@ INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VA
 (16,175,8,5,4,1,NULL),
 (17,175,3,10,3,5,NULL);
 GO
-INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VALUES
+INSERT INTO Notas([idDisciplina],[ProntuarioAluno],[n1],[n2],[n3],[n4],[aprovado]) VALUES
 (10,180,7,5,8,4,NULL),
 (11,180,4,6,8,2,NULL),
 (12,180,10,5,5,6,NULL),
 (13,180,6,6,8,2,NULL),
 (14,180,10,3,1,3,NULL);
 GO
-INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VALUES
+INSERT INTO Notas([idDisciplina],[ProntuarioAluno],[n1],[n2],[n3],[n4],[aprovado]) VALUES
 (10,185,2,3,7,10,NULL),
 (11,185,8,1,7,9,NULL),
 (12,185,9,10,6,9,NULL),
@@ -453,7 +453,7 @@ INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VA
 (16,185,5,8,8,10,NULL),
 (17,185,7,6,8,10,NULL);
 GO
-INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VALUES
+INSERT INTO Notas([idDisciplina],[ProntuarioAluno],[n1],[n2],[n3],[n4],[aprovado]) VALUES
 (10,190,2,1,10,5,NULL),
 (11,190,8,10,10,4,NULL),
 (12,190,4,5,3,6,NULL),
@@ -463,7 +463,7 @@ INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VA
 (16,190,5,5,5,7,NULL),
 (17,190,8,1,2,7,NULL);
 GO
-INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VALUES
+INSERT INTO Notas([idDisciplina],[ProntuarioAluno],[n1],[n2],[n3],[n4],[aprovado]) VALUES
 (10,195,8,3,9,2,NULL),
 (11,195,3,2,7,1,NULL),
 (12,195,8,3,6,3,NULL),
@@ -475,7 +475,7 @@ INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VA
 (18,195,5,4,7,5,NULL),
 (19,195,3,10,1,9,NULL);
 GO
-INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VALUES
+INSERT INTO Notas([idDisciplina],[ProntuarioAluno],[n1],[n2],[n3],[n4],[aprovado]) VALUES
 (10,200,5,4,3,5,NULL),
 (11,200,6,8,2,10,NULL),
 (12,200,6,5,6,2,NULL),
@@ -485,14 +485,14 @@ INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VA
 (16,200,3,7,6,8,NULL),
 (17,200,1,5,6,1,NULL);
 GO
-INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VALUES
+INSERT INTO Notas([idDisciplina],[ProntuarioAluno],[n1],[n2],[n3],[n4],[aprovado]) VALUES
 (10,205,5,4,1,6,NULL),
 (11,205,9,7,3,9,NULL),
 (12,205,9,7,10,2,NULL),
 (13,205,10,8,1,1,NULL),
 (14,205,10,10,9,8,NULL);
 GO
-INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VALUES
+INSERT INTO Notas([idDisciplina],[ProntuarioAluno],[n1],[n2],[n3],[n4],[aprovado]) VALUES
 (10,210,5,4,1,4,NULL),
 (11,210,9,6,8,7,NULL),
 (12,210,3,10,9,8,NULL),
@@ -502,7 +502,7 @@ INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VA
 (16,210,4,6,10,3,NULL),
 (17,210,7,1,2,5,NULL);
 GO
-INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VALUES
+INSERT INTO Notas([idDisciplina],[ProntuarioAluno],[n1],[n2],[n3],[n4],[aprovado]) VALUES
 (10,215,2,9,5,8,NULL),
 (11,215,2,8,5,2,NULL),
 (12,215,2,8,9,1,NULL),
@@ -512,7 +512,7 @@ INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VA
 (16,215,7,2,8,1,NULL),
 (17,215,3,3,3,3,NULL);
 GO
-INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VALUES
+INSERT INTO Notas([idDisciplina],[ProntuarioAluno],[n1],[n2],[n3],[n4],[aprovado]) VALUES
 (10,220,5,4,1,4,NULL),
 (11,220,9,6,8,7,NULL),
 (12,220,3,10,9,8,NULL),
@@ -524,7 +524,7 @@ INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VA
 (18,220,3,6,1,10,NULL),
 (19,220,1,8,4,7,NULL);
 GO
-INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VALUES
+INSERT INTO Notas([idDisciplina],[ProntuarioAluno],[n1],[n2],[n3],[n4],[aprovado]) VALUES
 (10,225,2,9,5,8,NULL),
 (11,225,2,8,5,2,NULL),
 (12,225,2,8,9,1,NULL),
@@ -534,14 +534,14 @@ INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VA
 (16,225,7,2,8,1,NULL),
 (17,225,3,3,3,3,NULL);
 GO
-INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VALUES
+INSERT INTO Notas([idDisciplina],[ProntuarioAluno],[n1],[n2],[n3],[n4],[aprovado]) VALUES
 (10,230,6,2,8,7,NULL),
 (11,230,3,6,9,10,NULL),
 (12,230,10,5,4,8,NULL),
 (13,230,1,1,7,6,NULL),
 (14,230,2,9,6,6,NULL);
 GO
-INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VALUES
+INSERT INTO Notas([idDisciplina],[ProntuarioAluno],[n1],[n2],[n3],[n4],[aprovado]) VALUES
 (10,235,4,2,6,6,NULL),
 (11,235,4,1,2,9,NULL),
 (12,235,7,10,9,10,NULL),
@@ -551,7 +551,7 @@ INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VA
 (16,235,4,2,9,4,NULL),
 (17,235,3,6,1,2,NULL);
 GO
-INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VALUES
+INSERT INTO Notas([idDisciplina],[ProntuarioAluno],[n1],[n2],[n3],[n4],[aprovado]) VALUES
 (10,240,4,6,1,3,NULL),
 (11,240,1,4,8,6,NULL),
 (12,240,1,6,7,8,NULL),
@@ -561,7 +561,7 @@ INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VA
 (16,240,7,1,3,3,NULL),
 (17,240,7,10,4,7,NULL);
 GO
-INSERT INTO Notas([idDisciplina],[prontuario],[n1],[n2],[n3],[n4],[aprovado]) VALUES
+INSERT INTO Notas([idDisciplina],[ProntuarioAluno],[n1],[n2],[n3],[n4],[aprovado]) VALUES
 (10,245,9,2,2,10,NULL),
 (11,245,7,9,1,3,NULL),
 (12,245,3,5,4,10,NULL),
