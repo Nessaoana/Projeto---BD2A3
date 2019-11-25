@@ -95,22 +95,22 @@ CREATE TABLE Matricula (
   idCurso INT NULL,
   INDEX matriculaAluno_idx (ProntuarioAluno ASC),
   INDEX matriculaCurso_idx (idCurso ASC),
-  CONSTRAINT matriculaAluno FOREIGN KEY (prontuarioAluno) REFERENCES Aluno (ProntuarioAluno),
+  CONSTRAINT matriculaAluno FOREIGN KEY (prontuarioAluno) REFERENCES Aluno (Prontuario),
   CONSTRAINT matriculaCurso FOREIGN KEY (idCurso) REFERENCES Curso (idCurso)
 );
 
 GO
-CREATE TABLE CordenadorCurso (
-  idCordenadorCurso INT NOT NULL PRIMARY KEY,
+CREATE TABLE CoordenadorCurso (
+  idCoordenadorCurso INT NOT NULL PRIMARY KEY,
   prontuarioProf INT NULL,
   idCurso INT NULL,
   dataEntrada DATE NULL,
   dataSaida DATE NULL,
   comissao FLOAT NULL,
-  INDEX professorCordenador_idx (prontuarioProf ASC),
-  INDEX cursoCordenador_idx (idCurso ASC),
-  CONSTRAINT professorCordenador FOREIGN KEY (prontuarioProf) REFERENCES Professor (prontuarioProf),
-  CONSTRAINT cursoCordenador FOREIGN KEY (idCurso) REFERENCES Curso (idCurso)
+  INDEX professorCoordenador_idx (prontuarioProf ASC),
+  INDEX cursoCoordenador_idx (idCurso ASC),
+  CONSTRAINT professorCoordenador FOREIGN KEY (prontuarioProf) REFERENCES Professor (prontuario),
+  CONSTRAINT cursoCoordenador FOREIGN KEY (idCurso) REFERENCES Curso (idCurso)
 );
 
 GO
@@ -149,7 +149,7 @@ CREATE TABLE Turma (
   INDEX disciplinaTurma_idx (idDisciplina ASC),
   INDEX disciplinaProfessor_idx (prontuarioProf ASC),
   CONSTRAINT disciplinaTurma FOREIGN KEY (idDisciplina) REFERENCES Disciplina (idDisciplina),
-  CONSTRAINT disciplinaProfessor FOREIGN KEY (prontuarioProf) REFERENCES Professor (prontuarioProf)
+  CONSTRAINT disciplinaProfessor FOREIGN KEY (prontuarioProf) REFERENCES Professor (prontuario)
 );
 
 GO
@@ -157,7 +157,7 @@ CREATE TABLE turmaAluno (
   idTurmaAluno INT not null PRIMARY KEY,
   ProntuarioAluno INT NOT NULL,
   idTurma INT NULL,
-  CONSTRAINT alunoTurma_FK FOREIGN KEY (ProntuarioAluno) REFERENCES Aluno (ProntuarioAluno),
+  CONSTRAINT alunoTurma_FK FOREIGN KEY (ProntuarioAluno) REFERENCES Aluno (Prontuario),
   CONSTRAINT turmaAluno_FK FOREIGN KEY (idTurma) REFERENCES Turma(idTurma)
 );
 
@@ -179,7 +179,7 @@ CREATE TABLE Notas (
 	n3 FLOAT NULL,
 	n4 FLOAT NULL,
 	aprovado BIT,
-	CONSTRAINT alunoNota_FK FOREIGN KEY (ProntuarioAluno) REFERENCES Aluno (ProntuarioAluno),
+	CONSTRAINT alunoNota_FK FOREIGN KEY (ProntuarioAluno) REFERENCES Aluno (Prontuario),
 	CONSTRAINT alunoDisciplina_FK FOREIGN KEY (idDisciplina) REFERENCES Disciplina (idDisciplina)
 );
 

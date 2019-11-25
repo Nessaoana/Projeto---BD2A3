@@ -155,7 +155,7 @@ INSERT INTO Matricula([matricula],[ProntuarioAluno],[idCurso]) VALUES
 (225,225,310),(230,230,330),(235,235,350),(240,240,370),(245,245,390);
 
 GO
-INSERT INTO CordenadorCurso([idCordenadorCurso],[prontuarioProf],[idCurso],[dataEntrada],[dataSaida],[comissao]) VALUES
+INSERT INTO CoordenadorCurso([idCoordenadorCurso],[prontuarioProf],[idCurso],[dataEntrada],[dataSaida],[comissao]) VALUES
 (1000,1000,300,'2019-09-11',NULL,0.3),
 (1030,1030,310,'2020-03-02',NULL,0.1),
 (1060,1060,320,'2019-11-14',NULL,0.1),

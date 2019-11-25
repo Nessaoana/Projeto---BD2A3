@@ -230,15 +230,19 @@ SELECT * FROM NOTAS WHERE prontuarioAluno = 100;
 
 --TRIGGER 2	
 --Trigger para atualizar o numero de faltas
+-- Atualizar vagasRestantes quando um aluno entrar da turma/disciplina 
 GO
-CREATE TRIGGER atualizaPresencas
-ON Frequencia
-AFTER UPDATE
-AS
-DECLARE @presencas int;
-DECLARE @faltas int;
-SELECT @presencas = presencas FROM inserted;
-
+CREATE TRIGGER atualizaVagasMais
+ON turmaAluno 
+AFTER insert
+as
+	DECLARE @turma int;
+	DECLARE @vagas int;
+	SELECT @turma = idTurma FROM inserted;
+	SELECT @vagas = vagas FROM curriculoCurso c 
+	inner join Turma t ON c.idDisciplina = t.idDisciplina where t.idTurma = @turma;
+	UPDATE curriculoCurso SET vagas = @vagas-1 (select vagas from curriculoCurso c 
+												inner join Turma t ON c.idDisciplina = t.idDisciplina WHERE idTurma = @turma);
 
 
 -- TRIGGER 3
@@ -290,6 +294,7 @@ GO
 UPDATE turma SET periodoFechado = 1  WHERE idTurma = 700;
 select * from Turma;
 
+
 -- TRIGGER 5
 -- Atualizar vagasRestantes quando um aluno sair da turma/disciplina 
 
@@ -334,37 +339,19 @@ as
 	SELECT * FROM Matricula M WHERE m.prontuario = @aluno;
 
 -- PROCEDURE 4
--- criar campo media e um update pra atribuir
+-- Ver quais foram os coordenadores de um curso
+
 GO
-CREATE PROCEDURE atribuiMedia (@n1 float, @n2 float, @n3 float,@n4 float, @codAluno int )
+CREATE PROCEDURE COORDENADORES
+@curso int
 AS
-begin
-	declare @media float;
-	SET @n1 = (select n1 from Notas n 
-					inner join Turma t on n.idDisciplina = t.idDisciplina 
-					inner join turmaAluno ta ON t.idTurma = ta.idTurma
-					inner join Aluno a ON ta.ProntuarioAluno = a.ProntuarioAluno
-					where @codAluno = ProntuarioAluno);
-	SET @n2 = (select n2 from Notas n 
-					inner join Turma t on n.idDisciplina = t.idDisciplina 
-					inner join turmaAluno ta ON t.idTurma = ta.idTurma
-					inner join Aluno a ON ta.ProntuarioAluno = a.ProntuarioAluno
-					where @codAluno = ProntuarioAluno);
-	SET @n3 = (select n3 from Notas n 
-					inner join Turma t on n.idDisciplina = t.idDisciplina 
-					inner join turmaAluno ta ON t.idTurma = ta.idTurma
-					inner join Aluno a ON ta.ProntuarioAluno = a.ProntuarioAluno
-					where @codAluno = ProntuarioAluno);
-	SET @n4 = (select n4 from Notas n 
-					inner join Turma t on n.idDisciplina = t.idDisciplina 
-					inner join turmaAluno ta ON t.idTurma = ta.idTurma
-					inner join Aluno a ON ta.ProntuarioAluno = a.ProntuarioAluno
-					where @codAluno = ProntuarioAluno);
-	SET @media = (@n1+@n2+@n3+@n4)/4;
-	update Notas set media = @media where @codAluno = ProntuarioAluno;
-     RETURN @media;
-end;
+	SELECT * FROM CoordenadorCurso c WHERE c.idCurso = @curso;
 
 -- PROCEDURE 5
---
+-- Ver professores de um departamento
+GO
+CREATE PROCEDURE profDepartamento
+@departamento int
+AS
+	SELECT * FROM Professor p WHERE p.idDepartamento = @departamento;
 
