@@ -17,7 +17,7 @@ VIEWS:
 
 TRIGGERS:
 1 - Atualizar o status de aprovação do aluno
-2 - Atualizar o numero de faltas
+2 - Atualizar vagasRestantes quando um aluno entrar da turma/disciplina 
 3 - Atualizar data de edição no cadastro da pessoa
 4 - Calcular quantos aprovados na turma quando o periodo estiver fechado.
 5 - Atualizar vagasRestantes quando um aluno sair da turma/disciplina 
