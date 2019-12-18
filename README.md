@@ -1,4 +1,4 @@
-Projeto da disciplina de Banco de dados 2 (BD2A3).
+Projeto da disciplina de Banco de dados 2 (BD2A3) utilizando como base o banco SQL Server.
 
 
 FUNCTIONS:
